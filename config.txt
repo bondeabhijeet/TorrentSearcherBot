@@ -1,0 +1,3 @@
+{
+    "API_KEY" : "insert_your_api_assess_Key_here"
+}
