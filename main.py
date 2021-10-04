@@ -7,11 +7,10 @@ from BotModules import TorrentSearcher as TorrentSearcher
 from BotModules import bothelp as bothelp
 
 # Reading the config.txt file to get configuration details
-with open('config.txt', 'rb') as f:
-    print('[+] Reading config Data')
-    Data = f.read()
-ConfigData = json.loads(Data)
-print('[√] Config Data read successfully')
+with open('config.json') as json_file:
+    ConfigData = json.load(json_file)
+    print(ConfigData)
+    print(ConfigData['COMMANDS']['Help'])
 
 def yts_command(update, context):
     RecievedMsg = update.message.text
@@ -22,7 +21,7 @@ def yts_command(update, context):
 
     msg = context.bot.sendMessage(chat_id = ChatID, text = "<b>Searching...</b>", parse_mode = ParseMode.HTML)
 
-    results = TorrentSearcher.YTSsearch(RecievedMsg)
+    results = TorrentSearcher.YTSsearch(RecievedMsg, ConfigData['COMMANDS']['Yts'])
 
     msg.edit_text(results, parse_mode=ParseMode.HTML)
 
@@ -37,9 +36,8 @@ def main():
     updater = Updater(ConfigData['API_KEY'], use_context=True)
     dp = updater.dispatcher
 
-    dp.add_handler(CommandHandler("yts", yts_command))
-
-    dp.add_handler(CommandHandler("help", BotHelp))
+    dp.add_handler(CommandHandler(f"{ConfigData['COMMANDS']['Yts']}", yts_command))
+    dp.add_handler(CommandHandler(f"{ConfigData['COMMANDS']['Help']}", BotHelp))
 
     updater.start_polling()
     updater.idle()

@@ -7,14 +7,14 @@ def GetTorrentDetails(AllTorrents, QueryQuality):
 
     return 0
          
-def YTSsearch(RecievedMsg):
+def YTSsearch(RecievedMsg, CommandToReplace):
 
     BaseURL = "https://yts.mx/api/v2/list_movies.json"
     ValidQualities = ["720p", "1080p", "2160p", "3D"]
 
     results = str()
 
-    query = RecievedMsg.replace('/yts ', '').replace('/yts', '')
+    query = RecievedMsg.replace(f'/{CommandToReplace} ', '').replace(f'/{CommandToReplace}', '')
 
     FilteredList = query.split("|")
     QueryName = FilteredList[0].strip()
