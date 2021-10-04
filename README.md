@@ -1,3 +1,6 @@
+[![TorrentSearcherBot Banner](https://raw.githubusercontent.com/bondeabhijeet/TorrentSearcherBot/main/torrentsearcher.png)](https://github.com/bondeabhijeet/TorrentSearcherBot)
+
+
 # What does this repo mean?
  _A simple telegram bot written in python to search torrents_
 
