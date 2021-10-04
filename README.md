@@ -35,11 +35,14 @@
   bash requirements.sh
   ```
   _By running this command, all the requirements will be installed on the system (including dependencies). *Details of the installation will be printed on the         screen_
-- ## config.txt file
+- ## config.json file
      append all the details in this file according to the fields.
    - **API_KEY** : The token you recieve from [@BotFather](https://telegram.me/BotFather) to access the HTTP API
+   - **COMMANDS** : All the commands on which the bot will work on
+     + **Yts** : The command to search yts websites [Default = yts].
+     + **Help** : The command to get the help message [Default = help].
 # Deploying the bot
-```
-python3 main.py
-```
-_As simple as that_
+ ```
+ python3 main.py
+ ```
+ _As simple as that_
