@@ -8,9 +8,9 @@ from BotModules import bothelp as bothelp
 
 # Reading the config.txt file to get configuration details
 with open('config.json') as json_file:
+    print('[+] Reading config Data')
     ConfigData = json.load(json_file)
-    print(ConfigData)
-    print(ConfigData['COMMANDS']['Help'])
+print('[√] Config Data read successfully')
 
 def yts_command(update, context):
     RecievedMsg = update.message.text
@@ -26,7 +26,7 @@ def yts_command(update, context):
     msg.edit_text(results, parse_mode=ParseMode.HTML)
 
 def BotHelp(update, context):
-    HelpMessage = bothelp.BotHelpMessage()
+    HelpMessage = bothelp.BotHelpMessage(ConfigData['COMMANDS'])
 
     ChatID = update.message.chat_id
     context.bot.sendMessage(chat_id = ChatID, text = HelpMessage, parse_mode = ParseMode.HTML)
