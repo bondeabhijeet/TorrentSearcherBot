@@ -42,7 +42,7 @@
    - **COMMANDS** : All the commands on which the bot will work on.
      + **Yts** : The command to search yts websites [Default = yts].
      + **Help** : The command to get the help message [Default = help].
-     + **o1337x** : The command to search 1337x websites [Default = Search1337x].
+     + **o1337x** : The command to search 1337x websites [Default = search1337x].
    - **NoOf1337xResults** : The number of results to be displayed from 1337x website.
 # Deploying the bot
  ```
