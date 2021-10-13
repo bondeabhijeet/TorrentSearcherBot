@@ -8,6 +8,7 @@
   <summary> <b>Supported Services </b></summary>
 
   + YTS.AM | YTS.AG | YTS.MX | YTS.LT
+  + 1337x.to | 1337x.st | 1337x.ws | 1337x.eu | 1337x.se | 1337x.is | 1337x.gd
   + <i>Working on more...</i>
 </details>
 
@@ -37,10 +38,12 @@
   _By running this command, all the requirements will be installed on the system (including dependencies). *Details of the installation will be printed on the         screen_
 - ## config.json file
      append all the details in this file according to the fields.
-   - **API_KEY** : The token you recieve from [@BotFather](https://telegram.me/BotFather) to access the HTTP API
-   - **COMMANDS** : All the commands on which the bot will work on
+   - **API_KEY** : The token you recieve from [@BotFather](https://telegram.me/BotFather) to access the HTTP API.
+   - **COMMANDS** : All the commands on which the bot will work on.
      + **Yts** : The command to search yts websites [Default = yts].
      + **Help** : The command to get the help message [Default = help].
+     + **o1337x** : The command to search 1337x websites [Default = Search1337x].
+   - **NoOf1337xResults** : The number of results to be displayed from 1337x website.
 # Deploying the bot
  ```
  python3 main.py
