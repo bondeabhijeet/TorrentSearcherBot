@@ -2,6 +2,9 @@
     "API_KEY" : "insert_your_api_assess_Key_here",
     "COMMANDS" : {
         "Help" : "help",
-        "Yts" : "yts"
-    }
+        "Yts" : "yts",
+        "o1337x" : "Search1337x"
+    },
+    "NoOf1337xResults" : "7"
+    
 }
