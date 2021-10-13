@@ -31,7 +31,7 @@ def SendMessage(update, context, MsgText, MessageID):
 ################################### Extract (the valid) query from the provided command by the user
 
 def ValidQuery(RecievedMsg, CommandToReplace):
-    query = RecievedMsg.replace(f'/{CommandToReplace} ', '').replace(f'/{CommandToReplace}', '')
+    query = RecievedMsg.replace(f'/{CommandToReplace} ', '').replace(f'/{CommandToReplace}', '').replace(f'/{CommandToReplace.lower()}', '').replace(f'/{CommandToReplace.lower()} ', '')
     if(query == ''):
         return None
     else:
@@ -57,7 +57,13 @@ def Get1337x(RecievedMsg, CommandToReplace, NoOf1337xResults, MessageID, update,
 
     RawJsonData = torrents.search(f'{query}')           # Using the py1337x library to get the search results for query provided
 
-    for i in range(0, NoOf1337xResults):
+    if(RawJsonData['itemCount'] == 0):                  # If there are 0 results for the query
+        SendMessage(update, context, "NO RESULTS FOR THE REQUESTED QUERY", MessageID)
+        return
+    else:
+        None
+
+    for i in range(0, NoOf1337xResults):                # Getting information for each torrent
         Torrent = RawJsonData['items'][i]
 
         Name = Torrent['name']                              # NAME OF THE TORRENT
