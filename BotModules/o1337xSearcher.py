@@ -47,7 +47,7 @@ def Get1337x(RecievedMsg, CommandToReplace, NoOf1337xResults, MessageID, update,
         SendMessage(update, context, "Enter a search term", MessageID)
         return
     else:
-        print(f"Searching for {query}")
+        print(f"[🔍] Searching for {query}")
 
     CurrentDirectoryPath = os.getcwd()                  # Get the full path to working directory (to save cache for py1337x library)
     try:
