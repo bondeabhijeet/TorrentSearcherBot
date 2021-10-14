@@ -1,3 +1,4 @@
 requests
 python-telegram-bot
+1337x
 py1337x
