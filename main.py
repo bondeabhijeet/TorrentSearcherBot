@@ -3,7 +3,7 @@ from telegram import *
 
 import json
 
-from BotModules import TorrentSearcher as TorrentSearcher
+from BotModules import YtsSearcher as YtsSearcher
 from BotModules import bothelp as bothelp
 from BotModules import o1337xSearcher as o1337xSearcher
 
@@ -15,16 +15,11 @@ print('[√] Config Data read successfully')
 
 def yts_command(update, context):
     RecievedMsg = update.message.text
-    #query = RecievedMsg.replace("/yts ", '')
+    CommandToReplace = ConfigData['COMMANDS']['Yts']
 
-    ChatID = update.message.chat_id
-    print("Chat ID:", ChatID)
 
-    msg = context.bot.sendMessage(chat_id = ChatID, text = "<b>Searching...</b>", parse_mode = ParseMode.HTML)
+    YtsSearcher.YTSsearch(update, context, RecievedMsg, CommandToReplace)
 
-    results = TorrentSearcher.YTSsearch(RecievedMsg, ConfigData['COMMANDS']['Yts'])
-
-    msg.edit_text(results, parse_mode=ParseMode.HTML)
 
 def BotHelp(update, context):
     HelpMessage = bothelp.BotHelpMessage(ConfigData['COMMANDS'])
@@ -34,11 +29,11 @@ def BotHelp(update, context):
     
 def o1337x(update, context):
 
-    RecievedMsg = update.message.text
+    RecievedMsg = update.message.text                       # Getting the message sent by the user
+    MessageID = update.message.message_id                   # Required to reply to that message
 
-    CommandToReplace = ConfigData['COMMANDS']['o1337x']
-    NoOf1337xResults = int(ConfigData['NoOf1337xResults'])
-    MessageID = update.message.message_id
+    CommandToReplace = ConfigData['COMMANDS']['o1337x']     # Getting the command, alloted 10 1337x search
+    NoOf1337xResults = int(ConfigData['NoOf1337xResults'])  # Getting the number of torrents to be fetched
 
     o1337xSearcher.Get1337x(RecievedMsg, CommandToReplace, NoOf1337xResults, MessageID, update, context)
 
