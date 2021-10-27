@@ -3,9 +3,11 @@
     "COMMANDS" : {
         "Help" : "help",
         "Yts" : "yts",
-        "o1337x" : "search1337x"
+        "o1337x" : "search1337x",
+        "Nyaasi" : "searchNyaasi"
     },
     "NoOf1337xResults" : "7",
+    "NoNyaasiResults" : "7",
     "Deploy" : "1"
     
 }

@@ -14,6 +14,7 @@ from BotModules import FlaskKeepAlive as FlaskKeepAlive
 from BotModules import YtsSearcher as YtsSearcher
 from BotModules import bothelp as bothelp
 from BotModules import o1337xSearcher as o1337xSearcher
+from BotModules import NyaasiSearcher as NyaasiSearcher
 
 # Reading the config.txt file to get configuration details
 with open('config.json') as json_file:
@@ -45,6 +46,17 @@ def o1337x(update, context):
 
     o1337xSearcher.Get1337x(RecievedMsg, CommandToReplace, NoOf1337xResults, MessageID, update, context)
 
+def Nyaasi_Command(update, context):
+
+    RecievedMsg = update.message.text
+    MessageID = update.message.message_id
+
+    CommandToReplace = ConfigData['COMMANDS']['Nyaasi']
+    NoNyaasiResults = int(ConfigData['NoNyaasiResults'])
+
+    NyaasiSearcher.NYAASIsearch(RecievedMsg, CommandToReplace, NoNyaasiResults, MessageID, update, context)
+
+
 def BotMain(seconds):
     if (ConfigData['Deploy'] == '1'):
         my_secret = os.environ['API_KEY']
@@ -56,6 +68,7 @@ def BotMain(seconds):
     dp.add_handler(CommandHandler(f"{ConfigData['COMMANDS']['Yts']}", yts_command))
     dp.add_handler(CommandHandler(f"{ConfigData['COMMANDS']['Help']}", BotHelp))
     dp.add_handler(CommandHandler(f"{ConfigData['COMMANDS']['o1337x']}", o1337x))
+    dp.add_handler(CommandHandler(f"{ConfigData['COMMANDS']['Nyaasi']}", Nyaasi_Command))
 
     updater.start_polling()
     print("\n[√] BOT STARTED SUCCESSFULLY [√]\n")

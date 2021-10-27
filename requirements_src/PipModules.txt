@@ -1,4 +1,5 @@
 requests
 python-telegram-bot
+lxml
 1337x
 py1337x
