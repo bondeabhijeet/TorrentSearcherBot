@@ -50,7 +50,11 @@ def NYAASIsearch(RecievedMsg, CommandToReplace, NoNyaasiResults, MessageID, upda
     soup = BeautifulSoup(r, 'lxml')
 
     tbody = soup.find('tbody')
-    trs = tbody.find_all('tr')
+    try:
+      trs = tbody.find_all('tr')
+    except:
+      SendMessage(update, context, "NO RESULTS FOR THE REQUESTED QUERY", MessageID)
+      return
 
     MaxLimit = WhoIsLess(NoNyaasiResults, len(trs))
 
