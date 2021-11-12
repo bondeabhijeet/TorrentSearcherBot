@@ -8,8 +8,11 @@ def WhoIsLess(NoNyaasiResults, NumberOfTrs):
   else:
     return NumberOfTrs
 
-def ValidQuery(RecievedMsg, CommandToReplace):
-    query = RecievedMsg.replace(f'/{CommandToReplace} ', '').replace(f'/{CommandToReplace}', '').replace(f'/{CommandToReplace.lower()}', '').replace(f'/{CommandToReplace.lower()} ', '')
+def ValidQuery(RecievedMsg, CommandToReplace, context):
+    CommandWithBotname = CommandToReplace + context.bot.bot.name
+    query = RecievedMsg.replace(f'/{CommandWithBotname}', '').replace(f'/{CommandToReplace}', '')
+    query = query.strip()
+
     if(query == ''):
         return None
     else:
@@ -33,7 +36,7 @@ Magnet: <code>{MagnetLink}</code>"""
 
 def NYAASIsearch(RecievedMsg, CommandToReplace, NoNyaasiResults, MessageID, update, context):
 
-    query = ValidQuery(RecievedMsg, CommandToReplace)   # Extract (the valid) query from the command
+    query = ValidQuery(RecievedMsg, CommandToReplace, context)   # Extract (the valid) query from the command
 
     if(query == None):                                  # Check if the user has sent a query or is it just the command
         SendMessage(update, context, "Enter a search term", MessageID)
