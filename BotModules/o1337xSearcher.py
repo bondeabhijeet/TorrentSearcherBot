@@ -1,6 +1,7 @@
 from py1337x import py1337x
 from telegram.parsemode import ParseMode
 import os
+import time
 
 ################################### Function to get the magnet link for specific torrent
 
@@ -26,12 +27,17 @@ def SendMessage(update, context, MsgText, MessageID):
     Chat_ID = update.message.chat_id
 
     msg = context.bot.sendMessage(chat_id = Chat_ID, text = MsgText, reply_to_message_id=MessageID, parse_mode = ParseMode.HTML)
+    time.sleep(0.8)
     return
 
 ################################### Extract (the valid) query from the provided command by the user
 
-def ValidQuery(RecievedMsg, CommandToReplace):
-    query = RecievedMsg.replace(f'/{CommandToReplace} ', '').replace(f'/{CommandToReplace}', '').replace(f'/{CommandToReplace.lower()}', '').replace(f'/{CommandToReplace.lower()} ', '')
+def ValidQuery(RecievedMsg, CommandToReplace, context):
+    
+    CommandWithBotname = CommandToReplace + context.bot.bot.name
+    query = RecievedMsg.replace(f'/{CommandWithBotname}', '').replace(f'/{CommandToReplace}', '')
+    query = query.strip()
+
     if(query == ''):
         return None
     else:
@@ -41,7 +47,7 @@ def ValidQuery(RecievedMsg, CommandToReplace):
 
 def Get1337x(RecievedMsg, CommandToReplace, NoOf1337xResults, MessageID, update, context):
 
-    query = ValidQuery(RecievedMsg, CommandToReplace)   # Extract (the valid) query from the command
+    query = ValidQuery(RecievedMsg, CommandToReplace, context)   # Extract (the valid) query from the command
 
     if(query == None):                                  # Check if the user has sent a query or is it just the command
         SendMessage(update, context, "Enter a search term", MessageID)
