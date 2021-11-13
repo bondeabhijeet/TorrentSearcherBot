@@ -6,4 +6,4 @@ def SendMessage(update, context, MsgText, MessageID):
 
     msg = context.bot.sendMessage(chat_id = Chat_ID, text = MsgText, reply_to_message_id=MessageID, parse_mode = ParseMode.HTML)
     time.sleep(0.8)
-    return
+    return msg
