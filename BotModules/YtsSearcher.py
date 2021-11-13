@@ -9,6 +9,17 @@ def GetTorrentDetails(AllTorrents, QueryQuality):
             return(quality)
     return 0
 
+def ValidQuery(RecievedMsg, CommandToReplace, context):
+    
+    CommandWithBotname = CommandToReplace + context.bot.bot.name
+    query = RecievedMsg.replace(f'/{CommandWithBotname}', '').replace(f'/{CommandToReplace}', '')
+    query = query.strip()
+
+    if(query == ''):
+        return None
+    else:
+        return query
+
 
 def EditMessage(msg, TextToUpdate):
     msg.edit_text(TextToUpdate, parse_mode=ParseMode.HTML)
@@ -23,12 +34,15 @@ def YTSsearch(update, context, RecievedMsg, CommandToReplace):
 
     results = str()
 
-    query = RecievedMsg.replace(f'/{CommandToReplace} ', '').replace(f'/{CommandToReplace}', '')
+    query = ValidQuery(RecievedMsg, CommandToReplace, context)   # Extract (the valid) query from the command
+    if(query == None):                                  # Check if the user has sent a query or is it just the command
+        EditMessage(msg, "<b>[✗] : ᴘʟᴇᴀꜱᴇ ꜱᴘᴇᴄɪꜰʏ ꜱᴇᴀʀᴄʜ ᴛᴇʀᴍ</b>")
+        return
 
     FilteredList = query.split("|")
     QueryName = FilteredList[0].strip()
 
-    if(QueryName == '' or QueryName in ValidQualities):
+    if(QueryName in ValidQualities):
         EditMessage(msg, "<b>[✗] : ᴘʟᴇᴀꜱᴇ ꜱᴘᴇᴄɪꜰʏ ꜱᴇᴀʀᴄʜ ᴛᴇʀᴍ</b>")
         return
 
