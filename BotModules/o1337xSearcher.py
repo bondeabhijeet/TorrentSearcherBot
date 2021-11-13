@@ -1,5 +1,6 @@
 from py1337x import py1337x
 from telegram.parsemode import ParseMode
+from BotModules import SendMessage as SendMessage
 import os
 import time
 
@@ -23,12 +24,7 @@ Magnet: <code>{MagnetLink}</code>"""
 
 ################################### Function to sent the message to the user that was created earlier
 
-def SendMessage(update, context, MsgText, MessageID):
-    Chat_ID = update.message.chat_id
 
-    msg = context.bot.sendMessage(chat_id = Chat_ID, text = MsgText, reply_to_message_id=MessageID, parse_mode = ParseMode.HTML)
-    time.sleep(0.8)
-    return
 
 ################################### Extract (the valid) query from the provided command by the user
 
@@ -50,7 +46,7 @@ def Get1337x(RecievedMsg, CommandToReplace, NoOf1337xResults, MessageID, update,
     query = ValidQuery(RecievedMsg, CommandToReplace, context)   # Extract (the valid) query from the command
 
     if(query == None):                                  # Check if the user has sent a query or is it just the command
-        SendMessage(update, context, "Enter a search term", MessageID)
+        SendMessage.SendMessage(update, context, "Enter a search term", MessageID)
         return
     else:
         print(f"[🔍] Searching for {query}")
@@ -64,7 +60,7 @@ def Get1337x(RecievedMsg, CommandToReplace, NoOf1337xResults, MessageID, update,
     RawJsonData = torrents.search(f'{query}')           # Using the py1337x library to get the search results for query provided
 
     if(RawJsonData['itemCount'] == 0):                  # If there are 0 results for the query
-        SendMessage(update, context, "NO RESULTS FOR THE REQUESTED QUERY", MessageID)
+        SendMessage.SendMessage(update, context, "NO RESULTS FOR THE REQUESTED QUERY", MessageID)
         return
     else:
         None
@@ -81,6 +77,6 @@ def Get1337x(RecievedMsg, CommandToReplace, NoOf1337xResults, MessageID, update,
 
         MsgToSend = CreateMessage(Name, Size, Seeders, Leechers, UploadedAt, MagnetLink)    # Creating the message to send (contains details of only 1 torrent)
 
-        SendMessage(update, context, MsgToSend, MessageID)
+        SendMessage.SendMessage(update, context, MsgToSend, MessageID)
 
     return

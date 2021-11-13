@@ -2,6 +2,7 @@ import requests
 import time
 from bs4 import BeautifulSoup
 from telegram.parsemode import ParseMode
+from BotModules import SendMessage as SendMessage
 
 def WhoIsLess(NoNyaasiResults, NumberOfTrs):
   if(NoNyaasiResults <= NumberOfTrs):
@@ -19,12 +20,7 @@ def ValidQuery(RecievedMsg, CommandToReplace, context):
     else:
         return query
 
-def SendMessage(update, context, MsgText, MessageID):
-    Chat_ID = update.message.chat_id
 
-    msg = context.bot.sendMessage(chat_id = Chat_ID, text = MsgText, reply_to_message_id=MessageID, parse_mode = ParseMode.HTML)
-    time.sleep(0.8)
-    return
 
 def CreateMessage(Name, Size, Seeders, Leechers, DownloadCompleted, MagnetLink):
     MsgToSend = f"""Name: <code><b>{Name}</b></code> 
@@ -41,7 +37,7 @@ def NYAASIsearch(RecievedMsg, CommandToReplace, NoNyaasiResults, MessageID, upda
     query = ValidQuery(RecievedMsg, CommandToReplace, context)   # Extract (the valid) query from the command
 
     if(query == None):                                  # Check if the user has sent a query or is it just the command
-        SendMessage(update, context, "Enter a search term", MessageID)
+        SendMessage.SendMessage(update, context, "Enter a search term", MessageID)
         return
     else:
         print(f"[🔍] Searching for {query}")
@@ -58,7 +54,7 @@ def NYAASIsearch(RecievedMsg, CommandToReplace, NoNyaasiResults, MessageID, upda
     try:
       trs = tbody.find_all('tr')
     except:
-      SendMessage(update, context, "NO RESULTS FOR THE REQUESTED QUERY", MessageID)
+      SendMessage.SendMessage(update, context, "NO RESULTS FOR THE REQUESTED QUERY", MessageID)
       return
 
     MaxLimit = WhoIsLess(NoNyaasiResults, len(trs))
@@ -76,7 +72,7 @@ def NYAASIsearch(RecievedMsg, CommandToReplace, NoNyaasiResults, MessageID, upda
 
         MsgToSend = CreateMessage(Name, Size, Seeders, Leechers, DownloadCompleted, MagnetLink)    # Creating the message to send (contains details of only 1 torrent)
 
-        SendMessage(update, context, MsgToSend, MessageID)
+        SendMessage.SendMessage(update, context, MsgToSend, MessageID)
         
 
     return
